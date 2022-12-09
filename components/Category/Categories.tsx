@@ -2,8 +2,8 @@ import { View, Text, ScrollView, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
 import logo from '../assets/logo.png';
-import sanityclient, { urlFor } from '../sanity';
-import { Category } from '../types/Category';
+import sanityclient, { urlFor } from '../../sanity';
+import { Category } from '../../types/Category';
 type Props = {};
 
 const Categories = (props: Props) => {

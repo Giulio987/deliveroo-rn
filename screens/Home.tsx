@@ -16,8 +16,8 @@ import {
   MagnifyingGlassIcon,
 } from 'react-native-heroicons/outline';
 import { colors } from '../constants/colors';
-import Categories from '../components/Categories';
-import FeaturedRow from '../components/FeaturedRow';
+import Categories from '../components/Category/Categories';
+import FeaturedRow from '../components/Restaurant/FeaturedRow';
 import client from '../sanity';
 import { FeaturedCategory } from '../types/FeaturedCategory';
 

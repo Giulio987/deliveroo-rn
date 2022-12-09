@@ -1,11 +1,11 @@
 import { View, Text, ScrollView, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ArrowRightIcon } from 'react-native-heroicons/outline';
-import { colors } from '../constants/colors';
+import { colors } from '../../constants/colors';
 import RestaurantCard from './RestaurantCard';
-import sanityClient from '../sanity';
-import { FeaturedCategory } from '../types/FeaturedCategory';
-import { Restaurant } from '../types/Restaurant';
+import sanityClient from '../../sanity';
+import { FeaturedCategory } from '../../types/FeaturedCategory';
+import { Restaurant } from '../../types/Restaurant';
 type Props = {
   id: string;
   title: string;

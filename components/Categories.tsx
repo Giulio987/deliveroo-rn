@@ -1,11 +1,28 @@
-import { View, Text, ScrollView } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
 import logo from '../assets/logo.png';
-
+import sanityclient, { urlFor } from '../sanity';
+import { Category } from '../types/Category';
 type Props = {};
 
 const Categories = (props: Props) => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    sanityclient
+      .fetch(
+        `
+        *[_type == "category"]
+        `
+      )
+      .then((res: Category[]) => {
+        setCategories(res);
+      })
+      .catch((err) => {
+        Alert.alert('Error fetching categories');
+      });
+  }, []);
+
   return (
     <ScrollView
       horizontal
@@ -16,24 +33,14 @@ const Categories = (props: Props) => {
       }}
     >
       {/* Category Card */}
-      <CategoryCard
-        imgUrl={
-          'https://media.istockphoto.com/id/1286622470/photo/healthy-fresh-sushi-roll-set-with-ginger-close-up-japanese-food.jpg?b=1&s=170667a&w=0&k=20&c=ypBK2FsuGrgVTgKPb29eleA6YJEXb5d0PG6LZb0M0ZU='
-        }
-        title="Testing 1"
-      />
-      <CategoryCard
-        imgUrl={
-          'https://media.istockphoto.com/id/1286622470/photo/healthy-fresh-sushi-roll-set-with-ginger-close-up-japanese-food.jpg?b=1&s=170667a&w=0&k=20&c=ypBK2FsuGrgVTgKPb29eleA6YJEXb5d0PG6LZb0M0ZU='
-        }
-        title="Testing 2"
-      />
-      <CategoryCard
-        imgUrl={
-          'https://media.istockphoto.com/id/1286622470/photo/healthy-fresh-sushi-roll-set-with-ginger-close-up-japanese-food.jpg?b=1&s=170667a&w=0&k=20&c=ypBK2FsuGrgVTgKPb29eleA6YJEXb5d0PG6LZb0M0ZU='
-        }
-        title="Testing 3"
-      />
+      {categories.map((category) => (
+        <CategoryCard
+          key={category._id}
+          //NOTE con sanity si potrebbero anche fare manipolazioni al recupero es. urlFor(category.image).width(200).url()
+          imgUrl={urlFor(category.image).url()}
+          title={category.name}
+        />
+      ))}
     </ScrollView>
   );
 };

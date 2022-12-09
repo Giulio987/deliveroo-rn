@@ -1,16 +1,43 @@
-import { View, Text, ScrollView } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { ArrowRightIcon } from 'react-native-heroicons/outline';
 import { colors } from '../constants/colors';
 import RestaurantCard from './RestaurantCard';
-
+import sanityClient from '../sanity';
+import { FeaturedCategory } from '../types/FeaturedCategory';
+import { Restaurant } from '../types/Restaurant';
 type Props = {
   id: string;
   title: string;
   description: string;
 };
 
-const FeaturedRow = ({ id, title, description }: Props) => {
+const FeaturedRow: React.FC<Props> = ({ id, title, description }: Props) => {
+  //TODO hook
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+      *[_type == "featured" && _id == $id] {
+        ...,
+        restaurants[]->{
+          ..., 
+          dishes[]->,
+          type-> {
+            name
+          }
+        },
+      }[0]
+      `,
+        { id }
+      )
+      .then((res: FeaturedCategory) => {
+        setRestaurants(res.restaurants);
+      })
+      .catch(() => Alert.alert('Errore durante il recupero dei ristoranti'));
+  }, []);
+
   return (
     <View className="mt-4 px-4">
       <View className="flex-row items-center justify-between ">
@@ -25,42 +52,21 @@ const FeaturedRow = ({ id, title, description }: Props) => {
         className="pt-4"
       >
         {/* RestaurantCards */}
-        <RestaurantCard
-          id={'12345'}
-          imgUrl="https://links.papareact.com/gn7"
-          title="The Best sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="1000 5th Ave, New York"
-          short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          dishes={[]}
-          long={-73.975}
-          lat={40.7829}
-        />
-        <RestaurantCard
-          id={'12345'}
-          imgUrl="https://links.papareact.com/gn7"
-          title="The Best sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="1000 5th Ave, New York"
-          short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          dishes={[]}
-          long={-73.975}
-          lat={40.7829}
-        />
-        <RestaurantCard
-          id={'12345'}
-          imgUrl="https://links.papareact.com/gn7"
-          title="The Best sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="1000 5th Ave, New York"
-          short_description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          dishes={[]}
-          long={-73.975}
-          lat={40.7829}
-        />
+        {restaurants.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            title={restaurant.name}
+            rating={restaurant.rating}
+            genre={restaurant.type?.name}
+            address={restaurant.address}
+            short_description={restaurant.short_description}
+            dishes={restaurant.dishes}
+            long={restaurant.long}
+            lat={restaurant.lat}
+          />
+        ))}
       </ScrollView>
     </View>
   );

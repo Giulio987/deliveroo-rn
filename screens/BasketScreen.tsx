@@ -4,7 +4,7 @@ import { BasketNavProps } from '../types/navigation';
 
 type Props = {};
 
-const BasketScreen = (props: Props & BasketNavProps) => {
+const BasketScreen = ({ navigation }: Props & BasketNavProps) => {
   return (
     <View>
       <Text>BasketScreen</Text>

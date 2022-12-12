@@ -1,10 +1,10 @@
 import { Category } from './Category';
-import { Dish } from './Dish';
+import { DishBE } from './Dish';
 import { SanityProps } from './Sanity';
 
 export interface Restaurant extends SanityProps {
   address: string;
-  dishes: Dish[];
+  dishes: DishBE[];
   image: string;
   lat: number;
   long: number;

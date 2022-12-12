@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { StarIcon } from 'react-native-heroicons/solid';
 import { MapPinIcon } from 'react-native-heroicons/outline';
-import { Dish } from '../../types/Dish';
+import { DishBE } from '../../types/Dish';
 import { urlFor } from '../../sanity';
 import { useNavigation } from '@react-navigation/native';
 import { RootScreenNavigationProp } from '../../types/navigation';
@@ -15,7 +15,7 @@ export type RestaurantCardProps = {
   genre: string;
   address: string;
   short_description: string;
-  dishes: Dish[];
+  dishes: DishBE[];
   long: number;
   lat: number;
 };

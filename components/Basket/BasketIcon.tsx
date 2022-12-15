@@ -12,9 +12,12 @@ import { colors } from '../../constants/colors';
 import { RootScreenNavigationProp } from '../../types/navigation';
 
 const BasketIcon = () => {
+  //Redux
   const items = useAppSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal);
   const navigation = useNavigation<RootScreenNavigationProp>();
+
+  if (items.length === 0) return null;
   return (
     <View className="absolute bottom-10 w-full z-50">
       <TouchableOpacity

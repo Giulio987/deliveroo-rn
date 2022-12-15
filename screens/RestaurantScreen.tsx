@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { RestaurantProps } from '../types/navigation';
 import { urlFor } from '../sanity';
 import {
@@ -13,11 +13,15 @@ import {
 import { colors } from '../constants/colors';
 import DishRow from '../components/Dish/DishRow';
 import BasketIcon from '../components/Basket/BasketIcon';
+import { useAppDispatch } from '../redux/hooks';
+import { setRestaurant } from '../redux/slices/restaurantSlice';
 
 type Props = {};
 
 const RestaurantScreen = ({ route, navigation }: Props & RestaurantProps) => {
   //TODO componenti
+
+  const dispatch = useAppDispatch();
   const {
     id,
     imgUrl,
@@ -31,6 +35,22 @@ const RestaurantScreen = ({ route, navigation }: Props & RestaurantProps) => {
     short_description,
   } = route.params;
 
+  useEffect(() => {
+    dispatch(
+      setRestaurant({
+        id,
+        image: imgUrl,
+        name: title,
+        address,
+        dishes,
+        genre,
+        rating,
+        short_description,
+        lat,
+        long,
+      })
+    );
+  }, [dispatch]);
   return (
     <>
       <BasketIcon />
@@ -81,7 +101,7 @@ const RestaurantScreen = ({ route, navigation }: Props & RestaurantProps) => {
         <View className="pb-32">
           <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
           {/* Dishrows */}
-          {dishes.map((dish) => (
+          {dishes?.map((dish) => (
             <DishRow
               key={dish._id}
               id={dish._id}

@@ -9,15 +9,15 @@ import { RootScreenNavigationProp } from '../../types/navigation';
 
 export type RestaurantCardProps = {
   id: string;
-  imgUrl: string;
-  title: string;
-  rating: number;
+  imgUrl: string | null;
+  title: string | null;
+  rating: number | null;
   genre: string;
-  address: string;
-  short_description: string;
-  dishes: DishBE[];
-  long: number;
-  lat: number;
+  address: string | null;
+  short_description: string | null;
+  dishes: DishBE[] | null;
+  long: number | null;
+  lat: number | null;
 };
 
 const RestaurantCard = ({

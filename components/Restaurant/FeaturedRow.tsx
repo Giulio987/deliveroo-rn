@@ -5,7 +5,7 @@ import { colors } from '../../constants/colors';
 import RestaurantCard from './RestaurantCard';
 import sanityClient from '../../sanity';
 import { FeaturedCategory } from '../../types/FeaturedCategory';
-import { Restaurant } from '../../types/Restaurant';
+import { RestaurantBE } from '../../types/Restaurant';
 type Props = {
   id: string;
   title: string;
@@ -13,8 +13,10 @@ type Props = {
 };
 
 const FeaturedRow: React.FC<Props> = ({ id, title, description }: Props) => {
+  //TODO sostituire genre su Restaurant da string al tipo category
+
   //TODO hook
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<RestaurantBE[]>([]);
   useEffect(() => {
     sanityClient
       .fetch(

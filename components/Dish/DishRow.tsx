@@ -44,7 +44,7 @@ const DishRow = ({ id, name, description, image, price }: Props) => {
           <View className="flex-1 pr-2">
             <Text className="text-lg mb-1">{name}</Text>
             <Text className="text-gray-400">{description}</Text>
-            <Text className="text-gray-400">
+            <Text className="text-gray-600 pt-1">
               <Currency quantity={price} currency="EUR" />
             </Text>
           </View>

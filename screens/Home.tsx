@@ -51,9 +51,9 @@ const Home = ({ navigation }: HomeNavProps) => {
       <View className="flex-row pb-3 items-center mx-4 space-x-2">
         <Image source={logo} className="w-7 h-7 rounded-full bg-gray-300 p-4" />
         <View className="flex-1">
-          <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
+          <Text className="font-bold text-gray-400 text-xs">Ordina ora!</Text>
           <Text className="font-bold text-xl">
-            Current Location
+            Posizione Attuale
             <ChevronDownIcon size={20} color={colors.primary} />
           </Text>
         </View>

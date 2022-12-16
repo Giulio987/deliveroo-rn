@@ -8,6 +8,8 @@ export type RootStackParamList = {
   Home: undefined;
   Restaurant: RestaurantCardProps;
   Basket: undefined;
+  PreparingOrderScreen: undefined;
+  Delivery: undefined;
 };
 
 //Component Screens props
@@ -19,6 +21,15 @@ export type RestaurantProps = NativeStackScreenProps<
 export type BasketNavProps = NativeStackScreenProps<
   RootStackParamList,
   'Basket'
+>;
+export type PreparingOrderScreenNavProps = NativeStackScreenProps<
+  RootStackParamList,
+  'PreparingOrderScreen'
+>;
+
+export type DeliveryScreenNavProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Delivery'
 >;
 
 //UseNavigation

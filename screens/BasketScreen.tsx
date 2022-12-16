@@ -114,7 +114,10 @@ const BasketScreen = ({ navigation }: Props & BasketNavProps) => {
               <Currency quantity={+(total + 5.99)} currency="EUR" />
             </Text>
           </View>
-          <TouchableOpacity className="rounded-lg bg-primary p-4">
+          <TouchableOpacity
+            className="rounded-lg bg-primary p-4"
+            onPress={() => navigation.navigate('PreparingOrderScreen')}
+          >
             <Text className="text-center text-white text-xl font-bold">
               Conferma ordine
             </Text>
